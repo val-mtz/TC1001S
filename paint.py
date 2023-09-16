@@ -40,15 +40,28 @@ def mod_circle(start, end):
     """Draw circle using two points as the diameter."""
     center = (start + end) / 2
     radius = abs(end - start) / 2
+    begin_fill()
     up()
     goto(center.x, center.y - radius)
     down()
     circle(radius)
+    end_fill()
 
 
 def rectangle(start, end):
     """Draw rectangle from start to end."""
-    pass  # TODO
+    up()
+    goto(start.x, start.y)
+    down()
+    begin_fill()
+
+    for _ in range(2):
+        forward(end.x - start.x)
+        left(90)
+        forward(end.y - start.y)
+        left(90)
+
+    end_fill()
 
 
 def triangle(start, end):
