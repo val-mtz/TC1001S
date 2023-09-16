@@ -9,8 +9,8 @@ Exercises
 5. Add width parameter.
 """
 
+#Immport the required libraries
 from turtle import *
-
 from freegames import vector
 
 
@@ -35,20 +35,52 @@ def square(start, end):
 
     end_fill()
 
-
-def circle(start, end):
-    """Draw circle from start to end."""
-    pass  # TODO
+#Circle function, named differently since Turtle already includes a circle() function
+def mod_circle(start, end):
+    """Draw circle using two points as the diameter."""
+    center = (start + end) / 2 #The is calculated to ensure the middle of the circle is drawn between the 2 points
+    radius = abs(end - start) / 2 #This is calculated to move the pen to the bottom edge of a vertical diamter
+    begin_fill()
+    
+    up()
+    goto(center.x, center.y - radius) #The pen is placed on the bottom edge of the diameter
+    down()
+    circle(radius) #Draws the circle 
+    
+    end_fill()
 
 
 def rectangle(start, end):
     """Draw rectangle from start to end."""
-    pass  # TODO
+    up()
+    goto(start.x, start.y) #The pen is placed on the first chosen point
+    down()
+    begin_fill()
+    
+    #Loop that runs twice to draw the rectangle, by moving first on the x-axis and then on the y-axis
+    for _ in range(2):
+        forward(end.x - start.x)
+        left(90)
+        forward(end.y - start.y)
+        left(90)
+
+    end_fill()
 
 
 def triangle(start, end):
     """Draw triangle from start to end."""
-    pass  # TODO
+    side_length = abs(end - start) #The length of the triangle's sides is calculated (it's the same since it's equilateral)
+    up()
+    goto(start.x, start.y) #The pen is placed on the first chosen point
+    down()
+    begin_fill()
+    
+    #Loop that runs three times, draws the traingle side by side from the bottom left corner
+    for _ in range(3):
+        forward(side_length)
+        left(120)
+    
+    end_fill()
 
 
 def tap(x, y):
@@ -60,7 +92,10 @@ def tap(x, y):
     else:
         shape = state['shape']
         end = vector(x, y)
-        shape(start, end)
+        if shape == circle:
+            mod_circle(start, end)
+        else:
+            shape(start, end)
         state['start'] = None
 
 
