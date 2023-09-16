@@ -91,7 +91,7 @@ def draw():
     if mark is not None and hide[mark]:
         x, y = xy(mark)
         up()
-        goto(x + 8, y + 9)
+        goto(x + 8, y + 9) # Adjust the position of the number to be more centered on the tile
         color('black')
         write(tiles[mark], font=('Arial', 30, 'normal'))
 
