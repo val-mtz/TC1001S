@@ -36,9 +36,14 @@ def square(start, end):
     end_fill()
 
 
-def circle(start, end):
-    """Draw circle from start to end."""
-    pass  # TODO
+def mod_circle(start, end):
+    """Draw circle using two points as the diameter."""
+    center = (start + end) / 2
+    radius = abs(end - start) / 2
+    up()
+    goto(center.x, center.y - radius)
+    down()
+    circle(radius)
 
 
 def rectangle(start, end):
@@ -60,7 +65,10 @@ def tap(x, y):
     else:
         shape = state['shape']
         end = vector(x, y)
-        shape(start, end)
+        if shape == circle:
+            mod_circle(start, end)
+        else:
+            shape(start, end)
         state['start'] = None
 
 
